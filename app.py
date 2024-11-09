@@ -29,27 +29,28 @@ def index():
 def predict():
     if 'file' not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
-    
+
     file = request.files['file']
 
     try:
         img = Image.open(file).convert('RGB')
-
         img_t = transform(img).unsqueeze(0).to(device)
-    
+
         with torch.no_grad():
             outputs = model(img_t).logits
+            probabilities = torch.nn.functional.softmax(outputs, dim=1)
             _, predicted = torch.max(outputs, 1)
+            confidence_score = probabilities[0, predicted.item()].item()
 
         class_names = ["Aloe Vera", "Areca Palm", "Boston Fern", "Chinese evergreen", "Dracaena", "Money Tree", "Peace lily", "Rubber Plant", "Snake Plant", "ZZ Plant"]
         predicted_class = class_names[predicted.item()]
 
-        # return render_template('index.html', result=predicted_class, image = img)
-        return jsonify(predicted_class)
+        return jsonify({"class": predicted_class, "confidence": confidence_score})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
