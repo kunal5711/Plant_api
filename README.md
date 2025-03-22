@@ -3,6 +3,11 @@
 This project is a **Flask-based web application** that uses a **PyTorch model** to classify plant images into one of ten predefined categories. It employs a pre-trained Vision Transformer (ViT) model fine-tuned for plant identification.
 
 ---
+## Screenshots
+
+- **Main Interface**:
+  ![Main Interface](screenshots/main.png)
+---
 
 ## Features
 - **Image Classification**: Classifies uploaded plant images into one of the following categories:
