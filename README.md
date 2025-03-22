@@ -6,7 +6,8 @@ This project is a **Flask-based web application** that uses a **PyTorch model** 
 ## Screenshots
 
 - **Main Interface**:
-  ![Main Interface](screenshots/main.png)
+  ![Main Interface](main.png)
+
 ---
 
 ## Features
